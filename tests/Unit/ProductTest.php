@@ -48,4 +48,15 @@ class ProductTest extends TestCase
         $this->assertInstanceOf('App\DriverKit', $product->driverKits[0]);
         $this->assertEquals($driverKit->id, $product->driverKits[0]->id);
     }
+
+    /** @test */
+    public function has_bioses()
+    {
+        $product = create('App\Product');
+        $bios = create('App\Bios', ['product_id' => $product->id]);
+
+        $this->assertInstanceOf('App\Bios', $product->bioses[0]);
+        $this->assertEquals($bios->id, $product->bioses[0]->id);
+
+    }
 }

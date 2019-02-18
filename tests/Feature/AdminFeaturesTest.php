@@ -180,6 +180,28 @@ class AdminFeaturesTest extends TestCase
     /** DRIVER KITS */
 
     /** @test */
+    public function authorised_users_can_visit_the_add_drivers_page()
+    {
+        $this->signIn();
+        $product = create('App\Product');
+
+        $this->get($product->path() . '/driver-kits/create')
+            ->assertStatus(200)
+            ->assertSee('Add Driver Kit');
+    }
+
+    /** @test */
+    public function unauthorised_users_may_not_visit_the_add_drivers_page()
+    {
+        $this->withExceptionHandling();
+
+        $product = create('App\Product');
+
+        $this->get($product->path() . '/driver-kits/create')
+            ->assertRedirect('/login');
+    }
+
+    /** @test */
     public function admin_user_can_add_a_driver_kit_to_a_product()
     {
         $this->signIn();
@@ -200,6 +222,56 @@ class AdminFeaturesTest extends TestCase
         $product = create('App\Product');
 
         $this->post($product->path() . '/driver-kits', [])
+            ->assertRedirect('/login');
+    }
+
+
+
+    /** BIOS */
+
+    /** @test */
+    public function authorised_users_can_visit_the_add_bios_page()
+    {
+        $this->signIn();
+        $product = create('App\Product');
+
+        $this->get($product->path() . '/bios/create')
+            ->assertStatus(200)
+            ->assertSee('Add Bios');
+    }
+
+    /** @test */
+    public function unauthorised_users_may_not_visit_the_add_bios_version_page()
+    {
+        $this->withExceptionHandling();
+
+        $product = create('App\Product');
+
+        $this->get($product->path() . '/bios/create')
+            ->assertRedirect('/login');
+    }
+
+    /** @test */
+    public function admin_user_can_add_a_bios_to_a_product()
+    {
+        $this->signIn();
+        $product = create('App\Product');
+
+        $bios = make('App\Bios', ['user_id' => auth()->id(), 'product_id' => $product->id]);
+
+        $this->post($product->path() . '/bios', $bios->toArray());
+
+        $this->assertDatabaseHas('bios', $bios->toArray());
+    }
+
+    /** @test */
+    public function unauthorised_users_may_not_add_bios()
+    {
+        $this->withExceptionHandling();
+
+        $product = create('App\Product');
+
+        $this->post($product->path() . '/bios', [])
             ->assertRedirect('/login');
     }
 

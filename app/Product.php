@@ -21,6 +21,11 @@ class Product extends Model
         return $this->hasMany(DriverKit::class);
     }
 
+    public function bioses()
+    {
+        return $this->hasMany(Bios::class);
+    }
+
     public function path() {
         return '/admin/products/' . $this->id;
     }

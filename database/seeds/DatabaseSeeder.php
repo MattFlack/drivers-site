@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
          $this->call(OSVersionsTableSeeder::class);
          $this->call(ProductsTableSeeder::class);
          $this->call(DriverKitsTableSeeder::class);
+         $this->call(BiosTableSeeder::class);
     }
 }

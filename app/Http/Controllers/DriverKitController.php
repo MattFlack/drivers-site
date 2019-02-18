@@ -7,6 +7,7 @@ use App\DriverKit;
 use App\OSVersion;
 use App\ProductCategory;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class DriverKitController extends Controller
 {
@@ -38,9 +39,11 @@ class DriverKitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Product $product)
     {
-        //
+        $osVersions = OSVersion::all();
+
+        return view('admin.products.driver_kits.create', compact('product', 'osVersions'));
     }
 
     /**

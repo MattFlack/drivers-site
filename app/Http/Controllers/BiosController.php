@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\OSVersion;
+use App\Bios;
 use App\Product;
-use App\ProductCategory;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class BiosController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -16,7 +15,7 @@ class ProductController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => ['index']]);
     }
 
     /**
@@ -34,11 +33,9 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Product $product)
     {
-        $productCategories = ProductCategory::all();
-
-        return view('admin.products.create', compact('productCategories'));
+        return view('admin.products.bios.create', compact('product'));
     }
 
     /**
@@ -47,38 +44,39 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Product $product)
     {
         $data = $request->validate([
-            'name' => ['required'],
-            'product_category_id' => ['required']
+            'url' => ['required'],
+            'version' => ['required']
         ]);
 
+        $data['product_id'] = $product->id;
         $data['user_id'] = auth()->id();
 
-        $product =Product::create($data);
+        Bios::create($data);
 
-        return redirect($product->path());
+        return back();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Product  $product
+     * @param  \App\Bios  $bios
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show(Bios $bios)
     {
-        return view('admin.products.show', compact('product'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Product  $product
+     * @param  \App\Bios  $bios
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit(Bios $bios)
     {
         //
     }
@@ -87,10 +85,10 @@ class ProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Product  $product
+     * @param  \App\Bios  $bios
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, Bios $bios)
     {
         //
     }
@@ -98,10 +96,10 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Product  $product
+     * @param  \App\Bios  $bios
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(Bios $bios)
     {
         //
     }
