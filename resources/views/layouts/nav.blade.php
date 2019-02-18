@@ -11,7 +11,7 @@
             <!-- Left Side Of Navbar -->
             <ul class="nav">
                 <li class="nav-item">
-                    <a class="nav-link {{ setActive('bios') }}" href="#">Bios</a>
+                    <a class="nav-link {{ setActive('bios') }}" href="/bios">Bios</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ setActive('drivers') }}" href="/driver-kits">Driver Kits</a>

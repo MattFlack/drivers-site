@@ -86,7 +86,7 @@
 
                 <div class="links">
                     <a href="/driver-kits">Drivers</a>
-                    <a href="#">Bios</a>
+                    <a href="/bios">Bios</a>
                     <a href="#">Help</a>
                 </div>
             </div>

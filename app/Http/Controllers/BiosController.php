@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Bios;
 use App\Product;
+use App\ProductCategory;
 use Illuminate\Http\Request;
 
 class BiosController extends Controller
@@ -25,7 +26,9 @@ class BiosController extends Controller
      */
     public function index()
     {
-        //
+        $productCategories = ProductCategory::all();
+
+        return view('bios.index', compact('productCategories'));
     }
 
     /**

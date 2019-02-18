@@ -35,4 +35,5 @@ Route::get('/admin/product-categories/create', 'ProductCategoryController@create
 Route::post('/admin/os-versions', 'OSVersionController@store');
 Route::get('/admin/os-versions/create', 'OSVersionController@create');
 
+Route::get('/bios', 'BiosController@index');
 Route::get('/driver-kits', 'DriverKitController@index');
