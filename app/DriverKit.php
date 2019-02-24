@@ -13,8 +13,18 @@ class DriverKit extends Model
         return $this->belongsTo(OSVersion::class);
     }
 
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+
     public function fileName()
     {
         return basename($this->url);
+    }
+
+    public function path()
+    {
+        return $this->product->path() . '/driver-kits/' . $this->id;
     }
 }

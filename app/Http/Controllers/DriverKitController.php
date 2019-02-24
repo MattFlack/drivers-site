@@ -84,9 +84,9 @@ class DriverKitController extends Controller
      * @param  \App\DriverKit  $driverKit
      * @return \Illuminate\Http\Response
      */
-    public function edit(DriverKit $driverKit)
+    public function edit(Product $product, DriverKit $driverKit)
     {
-        //
+        return view('admin.products.driver_kits.edit', compact('driverKit'));
     }
 
     /**
@@ -96,9 +96,15 @@ class DriverKitController extends Controller
      * @param  \App\DriverKit  $driverKit
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DriverKit $driverKit)
+    public function update(Request $request, Product $product, DriverKit $driverKit)
     {
-        //
+        $data = $request->validate([
+            'url' => ['required']
+        ]);
+
+        $driverKit->update($data);
+
+        return redirect($product->path());
     }
 
     /**

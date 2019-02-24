@@ -79,9 +79,9 @@ class BiosController extends Controller
      * @param  \App\Bios  $bios
      * @return \Illuminate\Http\Response
      */
-    public function edit(Bios $bios)
+    public function edit(Product $product, Bios $bios)
     {
-        //
+        return view('admin.products.bios.edit', compact('bios'));
     }
 
     /**
@@ -91,9 +91,16 @@ class BiosController extends Controller
      * @param  \App\Bios  $bios
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bios $bios)
+    public function update(Request $request, Product $product, Bios $bios)
     {
-        //
+        $data = $request->validate([
+            'url' => ['required'],
+            'version' => ['required']
+        ]);
+
+        $bios->update($data);
+
+        return redirect($product->path());
     }
 
     /**

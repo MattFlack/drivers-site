@@ -26,4 +26,23 @@ class DriverKitTest extends TestCase
 
         $this->assertEquals('driver.exe', $driverKit->fileName());
     }
+
+    /** @test */
+    public function has_a_product()
+    {
+        $product = create('App\Product');
+        $driverKit = create('App\DriverKit', ['product_id' => $product]);
+
+        $this->assertInstanceOf('App\Product', $driverKit->product);
+        $this->assertEquals($product->id, $driverKit->product->id);
+    }
+
+    /** @test */
+    public function has_a_path()
+    {
+        $product = create('App\Product');
+        $driverKit = create('App\DriverKit', ['product_id' => $product]);
+
+        $this->assertEquals($product->path() . '/driver-kits/' . $driverKit->id, $driverKit->path());
+    }
 }

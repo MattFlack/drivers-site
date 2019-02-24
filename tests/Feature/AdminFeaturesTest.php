@@ -3,11 +3,12 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class AdminFeaturesTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @test */
     public function authorised_users_can_visit_the_admin_page()
@@ -225,6 +226,66 @@ class AdminFeaturesTest extends TestCase
             ->assertRedirect('/login');
     }
 
+    /** @test */
+    public function authorised_users_can_visit_the_edit_driver_page()
+    {
+        $this->signIn();
+        $product = create('App\Product');
+        $driverKit = create('App\DriverKit', ['user_id' => auth()->id(), 'product_id' => $product->id]);
+
+        $this->get($driverKit->path() . '/edit')
+            ->assertStatus(200)
+            ->assertSee($driverKit->product->name);
+    }
+
+    /** @test */
+    public function unauthorised_users_may_not_visit_edit_driver_pages()
+    {
+        $this->withExceptionHandling();
+
+        $product = create('App\Product');
+        $driverKit = create('App\DriverKit', ['product_id' => $product->id]);
+
+        $this->get($driverKit->path() . '/edit')
+            ->assertRedirect('/login');
+    }
+
+    /** @test */
+    public function admin_user_can_edit_a_driver_kit()
+    {
+        $this->signIn();
+        $product = create('App\Product');
+        $driverKit = create('App\DriverKit', ['user_id' => auth()->id(), 'product_id' => $product->id]);
+
+        $this->patch($driverKit->path(), ['url' => 'www.changed.com']);
+
+        $this->assertDatabaseHas('driver_kits', [
+            'url' => 'www.changed.com'
+        ]);
+    }
+
+    /** @test */
+    public function unauthorised_users_may_not_edit_a_driver_kit()
+    {
+        $this->withExceptionHandling();
+
+        $product = create('App\Product');
+        $driverKit = create('App\DriverKit', [
+                'product_id' => $product->id,
+                'url' => 'www.unchanged.com'
+            ]);
+
+        $this->patch($driverKit->path(), ['url' => 'www.changed.com'])
+            ->assertRedirect('/login');
+
+        $this->assertDatabaseHas('driver_kits', [
+            'url' => 'www.unchanged.com'
+        ]);
+
+        $this->assertDatabaseMissing('driver_kits', [
+            'url' => 'www.changed.com'
+        ]);
+    }
 
 
     /** BIOS */
@@ -273,6 +334,80 @@ class AdminFeaturesTest extends TestCase
 
         $this->post($product->path() . '/bios', [])
             ->assertRedirect('/login');
+    }
+
+    /** @test */
+    public function authorised_users_can_visit_the_edit_bios_page()
+    {
+        $this->signIn();
+        $product = create('App\Product');
+        $bios = create('App\Bios', ['product_id' => $product->id]);
+
+        $this->get($bios->path() . '/edit')
+            ->assertStatus(200)
+            ->assertSee($bios->product->name);
+    }
+
+    /** @test */
+    public function unauthorised_users_may_not_visit_edit_bios_pages()
+    {
+        $this->withExceptionHandling();
+
+        $product = create('App\Product');
+        $bios = create('App\Bios', ['product_id' => $product->id]);
+
+        $this->get($bios->path() . '/edit')
+            ->assertRedirect('/login');
+    }
+
+    /** @test */
+    public function admin_user_can_edit_a_bios()
+    {
+        $this->signIn();
+        $product = create('App\Product');
+        $bios = create('App\Bios', [
+            'product_id' => $product->id,
+            'url' => 'www.unchanged.com',
+            'version' => '1.0'
+        ]);
+
+        $this->patch($bios->path(), [
+            'url' => 'www.changed.com',
+            'version' => '1.01'
+        ]);
+
+        $this->assertDatabaseHas('bios', [
+            'url' => 'www.changed.com',
+            'version' => '1.01'
+        ]);
+    }
+
+    /** @test */
+    public function unauthorised_users_may_not_edit_a_bios()
+    {
+        $this->withExceptionHandling();
+
+        $product = create('App\Product');
+        $bios = create('App\Bios', [
+            'product_id' => $product->id,
+            'url' => 'www.unchanged.com',
+            'version' => '1.00'
+        ]);
+
+        $this->patch($bios->path(), [
+            'url' => 'www.changed.com',
+            'version' => '1.01'
+        ])->assertRedirect('/login');
+
+        $this->assertDatabaseHas('bios', [
+            'url' => 'www.unchanged.com',
+            'version' => '1.00'
+        ]);
+
+        $this->assertDatabaseMissing('bios', [
+            'url' => 'www.changed.com',
+            'version' => '1.01'
+        ]);
     }
 
 }
