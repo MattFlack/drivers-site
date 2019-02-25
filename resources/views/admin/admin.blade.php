@@ -16,6 +16,7 @@
                             <th scope="col">Category</th>
                             <th scope="col">Creator</th>
                             <th scope="col">Added</th>
+                            <th scope="col"></th>
                         </thead>
                         <tbody>
                             @foreach($products as $product)
@@ -24,6 +25,10 @@
                                     <td>{{ $product->category->name }}</td>
                                     <td>{{ $product->creator->name }}</td>
                                     <td>{{ $product->created_at->diffForHumans() }}</td>
+                                    <td>
+                                        <a class="pr-1" title="Edit Product" href="{{ $product->path() }}/edit"><i class="fas fa-edit"></i></a>
+                                        <a href="#" title="Delete Product"><i class="fas fa-trash"></i></a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

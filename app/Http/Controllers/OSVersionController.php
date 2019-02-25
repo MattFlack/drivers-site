@@ -76,9 +76,9 @@ class OSVersionController extends Controller
      * @param  \App\OSVersion  $oSVersion
      * @return \Illuminate\Http\Response
      */
-    public function edit(OSVersion $oSVersion)
+    public function edit(OSVersion $osVersion)
     {
-        //
+        return view('admin.os_versions.edit', compact('osVersion'));
     }
 
     /**
@@ -88,9 +88,15 @@ class OSVersionController extends Controller
      * @param  \App\OSVersion  $oSVersion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, OSVersion $oSVersion)
+    public function update(Request $request, OSVersion $osVersion)
     {
-        //
+        $data = $request->validate([
+            'name' => ['required']
+        ]);
+
+        $osVersion->update($data);
+
+        return redirect('/admin/os-versions/create');
     }
 
     /**

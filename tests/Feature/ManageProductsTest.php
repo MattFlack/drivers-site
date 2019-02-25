@@ -70,4 +70,77 @@ class ManageProductsTest extends TestCase
         $this->get($product->path())
             ->assertRedirect('/login');
     }
+
+    /** @test */
+    public function authorised_users_can_visit_the_edit_product_page()
+    {
+        $this->signIn();
+        $product = create('App\Product');
+
+        $this->get($product->path() . '/edit')
+            ->assertStatus(200)
+            ->assertSee($product->name);
+    }
+
+    /** @test */
+    public function unauthorised_users_may_not_visit_edit_product_pages()
+    {
+        $this->withExceptionHandling();
+        $product = create('App\Product');
+
+        $this->get($product->path() . '/edit')
+            ->assertRedirect('/login');
+    }
+
+    /** @test */
+    public function admin_user_can_edit_a_product()
+    {
+        $this->signIn();
+        $categoryOne = create('App\ProductCategory');
+        $categoryTwo = create('App\ProductCategory');
+
+        $product = create('App\Product', [
+            'name' => 'unchanged',
+            'product_category_id' => $categoryOne->id
+        ]);
+
+        $this->patch($product->path(), [
+            'name' => 'changed',
+            'product_category_id' => $categoryTwo->id
+        ]);
+
+        $this->assertDatabaseHas('products', [
+            'name' => 'changed',
+            'product_category_id' => $categoryTwo->id
+        ]);
+    }
+
+    /** @test */
+    public function unauthorised_users_may_not_edit_a_product()
+    {
+        $this->withExceptionHandling();
+
+        $categoryOne = create('App\ProductCategory');
+        $categoryTwo = create('App\ProductCategory');
+
+        $product = create('App\Product', [
+            'name' => 'unchanged',
+            'product_category_id' => $categoryOne->id
+        ]);
+
+        $this->patch($product->path(), [
+            'name' => 'changed',
+            'product_category_id' => $categoryTwo->id
+        ])->assertRedirect('/login');
+
+        $this->assertDatabaseHas('products', [
+            'name' => 'unchanged',
+            'product_category_id' => $categoryOne->id
+        ]);
+
+        $this->assertDatabaseMissing('products', [
+            'name' => 'changed',
+            'product_category_id' => $categoryTwo->id
+        ]);
+    }
 }

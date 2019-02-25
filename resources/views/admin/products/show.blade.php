@@ -66,62 +66,6 @@
                         @endforeach
                     </ul>
                 </div>
-
-                {{--<div class="card mt-3">--}}
-                    {{--<div class="card-body">--}}
-
-                        {{--<h2 class="card-title">Add Driver Kit</h2>--}}
-
-                        {{--@include('shared.validation_errors')--}}
-                        {{--<form method="POST" action="{{ $product->path() . '/driver-kits' }}">--}}
-                            {{--@csrf--}}
-
-                            {{--<div class="form-group">--}}
-                                {{--<label for="os-version">OS Version</label>--}}
-                                {{--<select class="custom-select" id="os-version" name="os_version_id">--}}
-                                    {{--@foreach($osVersions as $osVersion)--}}
-                                        {{--<option value="{{$osVersion->id}}">{{$osVersion->name}}</option>--}}
-                                    {{--@endforeach--}}
-                                {{--</select>--}}
-                            {{--</div>--}}
-
-                            {{--<div class="form-group">--}}
-                                {{--<label for="url">Download URL</label>--}}
-                                {{--<input type="text" class="form-control" id="url" name="url" required>--}}
-                            {{--</div>--}}
-
-                            {{--<button type="submit" class="btn btn-primary">Submit</button>--}}
-
-                        {{--</form>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-
-                {{--<div class="card mt-3">--}}
-                    {{--<div class="card-body">--}}
-
-                        {{--<h2 class="card-title">Add Bios</h2>--}}
-
-                        {{--@include('shared.validation_errors')--}}
-                        {{--<form method="POST" action="{{ $product->path() . '/bios' }}">--}}
-                            {{--@csrf--}}
-
-                            {{--<div class="form-group">--}}
-                                {{--<label for="version">Version</label>--}}
-                                {{--<input type="text" class="form-control" id="version" name="version" required>--}}
-                            {{--</div>--}}
-
-                            {{--<div class="form-group">--}}
-                                {{--<label for="url">Download URL</label>--}}
-                                {{--<input type="text" class="form-control" id="url" name="url" required>--}}
-                            {{--</div>--}}
-
-                            {{--<button type="submit" class="btn btn-primary">Submit</button>--}}
-
-                        {{--</form>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-
-
             </div>
         </div>
     </div>

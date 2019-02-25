@@ -47,4 +47,52 @@ class ManageOSVersionsTest extends TestCase
         $this->post('/admin/os-versions', [])
             ->assertRedirect('/login');
     }
+
+    /** @test */
+    public function authorised_users_can_visit_the_edit_os_version_page()
+    {
+        $this->signIn();
+        $osVersion = create('App\OSVersion');
+
+        $this->get($osVersion->path() . '/edit')
+            ->assertStatus(200)
+            ->assertSee($osVersion->name);
+    }
+
+    /** @test */
+    public function unauthorised_users_may_not_visit_edit_os_version_pages()
+    {
+        $this->withExceptionHandling();
+        $osVersion = create('App\OSVersion');
+
+        $this->get($osVersion->path() . '/edit')
+            ->assertRedirect('/login');
+    }
+
+    /** @test */
+    public function admin_user_can_edit_an_os_version()
+    {
+        $this->signIn();
+
+        $osVersion = create('App\OSVersion', ['name' => 'unchanged',]);
+
+        $this->patch($osVersion->path(), ['name' => 'changed',]);
+
+        $this->assertDatabaseHas('os_versions', ['name' => 'changed',]);
+    }
+
+    /** @test */
+    public function unauthorised_users_may_not_edit_an_os_version()
+    {
+        $this->withExceptionHandling();
+
+        $osVersion = create('App\OSVersion', ['name' => 'unchanged',]);
+
+        $this->patch($osVersion->path(), ['name' => 'changed',])
+            ->assertRedirect('/login');
+
+        $this->assertDatabaseHas('os_versions', ['name' => 'unchanged',]);
+
+        $this->assertDatabaseMissing('os_versions', ['name' => 'changed']);
+    }
 }

@@ -80,7 +80,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $productCategories = ProductCategory::all();
+        return view('admin.products.edit', compact('product', 'productCategories'));
     }
 
     /**
@@ -92,7 +93,14 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $data = $request->validate([
+            'name' => ['required'],
+            'product_category_id' => ['required']
+        ]);
+
+        $product->update($data);
+
+        return redirect('/admin');
     }
 
     /**

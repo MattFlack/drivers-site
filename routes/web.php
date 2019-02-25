@@ -22,6 +22,8 @@ Route::get('/admin', 'AdminController@index');
 Route::post('/admin/products', 'ProductController@store');
 Route::get('/admin/products/create', 'ProductController@create');
 Route::get('/admin/products/{product}', 'ProductController@show');
+Route::get('/admin/products/{product}/edit', 'ProductController@edit');
+Route::patch('/admin/products/{product}', 'ProductController@update');
 
 Route::get('/admin/products/{product}/driver-kits/create', 'DriverKitController@create');
 Route::post('/admin/products/{product}/driver-kits', 'DriverKitController@store');
@@ -38,6 +40,8 @@ Route::get('/admin/product-categories/create', 'ProductCategoryController@create
 
 Route::post('/admin/os-versions', 'OSVersionController@store');
 Route::get('/admin/os-versions/create', 'OSVersionController@create');
+Route::get('/admin/os-versions/{osVersion}/edit', 'OSVersionController@edit');
+Route::patch('/admin/os-versions/{osVersion}', 'OSVersionController@update');
 
 Route::get('/bios', 'BiosController@index');
 Route::get('/driver-kits', 'DriverKitController@index');

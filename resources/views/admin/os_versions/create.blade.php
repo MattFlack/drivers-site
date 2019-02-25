@@ -13,7 +13,20 @@
                 <ul class="list-group list-group-flush">
                     @foreach($osVersions as $osVersion)
                         <li class="list-group-item">
-                            {{ $osVersion->name }}
+                            <div class="d-flex bd-highlight">
+
+                                {{-- Left Content --}}
+                                <div class="flex-grow-1 bd-highlight">
+                                    {{ $osVersion->name }}
+                                </div>
+
+                                {{-- Right Content --}}
+                                <div class="bd-highlight">
+                                    <a class="pr-1" title="Edit OS Version" href="{{ $osVersion->path() }}/edit"><i class="fas fa-edit"></i></a>
+                                    <a href="#" title="Delete OS Version"><i class="fas fa-trash"></i></a>
+                                </div>
+
+                            </div>
                         </li>
                     @endforeach
                 </ul>
