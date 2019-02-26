@@ -77,7 +77,7 @@ class ProductCategoryController extends Controller
      */
     public function edit(ProductCategory $productCategory)
     {
-        //
+        return view('admin.product_categories.edit', compact('productCategory'));
     }
 
     /**
@@ -89,7 +89,13 @@ class ProductCategoryController extends Controller
      */
     public function update(Request $request, ProductCategory $productCategory)
     {
-        //
+        $data = $request->validate([
+            'name' => ['required']
+        ]);
+
+        $productCategory->update($data);
+
+        return redirect('/admin/product-categories/create');
     }
 
     /**

@@ -46,4 +46,52 @@ class ManageProductCategoriesTest extends TestCase
         $this->post('/admin/product-categories', [])
             ->assertRedirect('/login');
     }
+
+    /** @test */
+    public function authorised_users_can_visit_the_edit_product_category_page()
+    {
+        $this->signIn();
+        $productCategory = create('App\ProductCategory');
+
+        $this->get($productCategory->path() . '/edit')
+            ->assertStatus(200)
+            ->assertSee($productCategory->name);
+    }
+
+    /** @test */
+    public function unauthorised_users_may_not_visit_edit_product_category_pages()
+    {
+        $this->withExceptionHandling();
+        $productCategory = create('App\ProductCategory');
+
+        $this->get($productCategory->path() . '/edit')
+            ->assertRedirect('/login');
+    }
+
+    /** @test */
+    public function admin_users_can_edit_a_product_category()
+    {
+        $this->signIn();
+
+        $productCategory = create('App\ProductCategory', ['name' => 'unchanged']);
+
+        $this->patch($productCategory->path(), ['name' => 'changed',]);
+
+        $this->assertDatabaseHas('product_categories', ['name' => 'changed']);
+    }
+
+    /** @test */
+    public function unauthorised_users_may_not_edit_a_product_category()
+    {
+        $this->withExceptionHandling();
+
+        $productCategory = create('App\ProductCategory', ['name' => 'unchanged']);
+
+        $this->patch($productCategory->path(), ['name' => 'changed',])
+            ->assertRedirect('/login');
+
+        $this->assertDatabaseHas('product_categories', ['name' => 'unchanged',]);
+
+        $this->assertDatabaseMissing('product_categories', ['name' => 'changed']);
+    }
 }

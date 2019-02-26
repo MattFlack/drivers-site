@@ -37,6 +37,8 @@ Route::patch('/admin/products/{product}/bios/{bios}', 'BiosController@update');
 
 Route::post('/admin/product-categories', 'ProductCategoryController@store');
 Route::get('/admin/product-categories/create', 'ProductCategoryController@create');
+Route::get('/admin/product-categories/{productCategory}/edit', 'ProductCategoryController@edit');
+Route::patch('/admin/product-categories/{productCategory}', 'ProductCategoryController@update');
 
 Route::post('/admin/os-versions', 'OSVersionController@store');
 Route::get('/admin/os-versions/create', 'OSVersionController@create');

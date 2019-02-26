@@ -13,7 +13,19 @@
                 <ul class="list-group list-group-flush">
                     @foreach($productCategories as $category)
                         <li class="list-group-item">
-                            {{ $category->name }}
+                            <div class="d-flex bd-highlight">
+
+                                {{-- Left Content --}}
+                                <div class="flex-grow-1 bd-highlight">
+                                    {{ $category->name }}
+                                </div>
+
+                                {{-- Right Content --}}
+                                <div class="bd-highlight">
+                                    <a class="pr-1" title="Edit Category" href="{{ $category->path() }}/edit"><i class="fas fa-edit"></i></a>
+                                    <a href="#" title="Delete Category"><i class="fas fa-trash"></i></a>
+                                </div>
+                            </div>
                         </li>
                     @endforeach
                 </ul>
@@ -23,8 +35,8 @@
             <div class="card mt-3">
                 <div class="card-body">
                     <h2 class="card-title">Add Product Category</h2>
-                    @include('shared.validation_errors')
 
+                    @include('shared.validation_errors')
                     <form method="POST" action="/admin/product-categories">
                         @csrf
 

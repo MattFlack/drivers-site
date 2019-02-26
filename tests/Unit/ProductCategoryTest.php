@@ -20,4 +20,12 @@ class ProductCategoryTest extends TestCase
         $this->assertInstanceOf('App\Product', $category->products[0]);
         $this->assertEquals($product->id, $category->products[0]->id);
     }
+
+    /** @test */
+    public function has_a_path()
+    {
+        $productCategory = create('App\ProductCategory');
+
+        $this->assertEquals('/admin/product-categories/' . $productCategory->id, $productCategory->path());
+    }
 }

@@ -12,4 +12,9 @@ class ProductCategory extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+    public function path()
+    {
+        return '/admin/product-categories/' . $this->id;
+    }
 }
