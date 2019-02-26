@@ -19,6 +19,7 @@ Auth::routes(['register' => false]);
 
 Route::get('/admin', 'AdminController@index');
 
+Route::get('/admin/products', 'ProductController@index');
 Route::post('/admin/products', 'ProductController@store');
 Route::get('/admin/products/create', 'ProductController@create');
 Route::get('/admin/products/{product}', 'ProductController@show');
@@ -35,13 +36,13 @@ Route::post('/admin/products/{product}/bios', 'BiosController@store');
 Route::get('/admin/products/{product}/bios/{bios}/edit', 'BiosController@edit');
 Route::patch('/admin/products/{product}/bios/{bios}', 'BiosController@update');
 
+Route::get('/admin/product-categories', 'ProductCategoryController@index');
 Route::post('/admin/product-categories', 'ProductCategoryController@store');
-Route::get('/admin/product-categories/create', 'ProductCategoryController@create');
 Route::get('/admin/product-categories/{productCategory}/edit', 'ProductCategoryController@edit');
 Route::patch('/admin/product-categories/{productCategory}', 'ProductCategoryController@update');
 
+Route::get('/admin/os-versions', 'OSVersionController@index');
 Route::post('/admin/os-versions', 'OSVersionController@store');
-Route::get('/admin/os-versions/create', 'OSVersionController@create');
 Route::get('/admin/os-versions/{osVersion}/edit', 'OSVersionController@edit');
 Route::patch('/admin/os-versions/{osVersion}', 'OSVersionController@update');
 

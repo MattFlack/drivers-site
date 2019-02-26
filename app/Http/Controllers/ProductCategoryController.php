@@ -24,7 +24,9 @@ class ProductCategoryController extends Controller
      */
     public function index()
     {
-        //
+        $productCategories = ProductCategory::all();
+
+        return view('admin.product_categories.index', compact('productCategories'));
     }
 
     /**
@@ -34,9 +36,7 @@ class ProductCategoryController extends Controller
      */
     public function create()
     {
-        $productCategories = ProductCategory::all();
-
-        return view('admin.product_categories.create', compact('productCategories'));
+        //
     }
 
     /**
@@ -95,7 +95,7 @@ class ProductCategoryController extends Controller
 
         $productCategory->update($data);
 
-        return redirect('/admin/product-categories/create');
+        return redirect('/admin/product-categories');
     }
 
     /**

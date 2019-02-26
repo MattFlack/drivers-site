@@ -9,21 +9,21 @@ class ManageProductCategoriesTest extends TestCase
 {
     use RefreshDatabase;
     /** @test */
-    public function authorised_users_can_visit_the_create_category_page()
+    public function authorised_users_can_visit_the_categories_page()
     {
         $this->signIn();
 
-        $this->get('/admin/product-categories/create')
+        $this->get('/admin/product-categories')
             ->assertStatus(200)
             ->assertSee('Add Product Category');
     }
 
     /** @test */
-    public function unauthorised_users_may_not_visit_the_create_category_page()
+    public function unauthorised_users_may_not_visit_the_categories_page()
     {
         $this->withExceptionHandling();
 
-        $this->get('/admin/product-categories/create')
+        $this->get('/admin/product-categories')
             ->assertRedirect('/login');
     }
 

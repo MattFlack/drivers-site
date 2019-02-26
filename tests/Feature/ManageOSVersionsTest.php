@@ -10,21 +10,21 @@ class ManageOSVersionsTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function authorised_users_can_visit_the_create_os_version_page()
+    public function authorised_users_can_visit_the_os_versions_page()
     {
         $this->signIn();
 
-        $this->get('/admin/os-versions/create')
+        $this->get('/admin/os-versions')
             ->assertStatus(200)
             ->assertSee('Add OS Version');
     }
 
     /** @test */
-    public function unauthorised_users_may_not_visit_the_create_os_version_page()
+    public function unauthorised_users_may_not_visit_the_os_versions_page()
     {
         $this->withExceptionHandling();
 
-        $this->get('/admin/os-versions/create')
+        $this->get('/admin/os-versions')
             ->assertRedirect('/login');
     }
 

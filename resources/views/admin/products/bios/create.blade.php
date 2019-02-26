@@ -4,6 +4,8 @@
     <div class="row justify-content-center">
         <div class="col-md-12 mr-4">
 
+            <h1><a href="{{ $product->path() }}">{{ $product->name }}</a></h1>
+
             <div class="card">
                 <div class="card-body">
 

@@ -9,7 +9,7 @@
                 <h1 class="mb-3">{{ $product->name }}</h1>
                 {{--<small>Created by {{ $product->creator->name }} {{ $product->created_at->diffForHumans() }}</small>--}}
 
-                <a class="btn btn-primary" href="{{ $product->path() }}/driver-kits/create">Add Driver Kit</a>
+                <a class="mr-1 btn btn-primary" href="{{ $product->path() }}/driver-kits/create">Add Driver Kit</a>
                 <a class="btn btn-primary" href="{{ $product->path() }}/bios/create">Add Bios Version</a>
 
                 <div class="card mt-3">
@@ -43,7 +43,7 @@
 
                 <div class="card mt-3">
                     <div class="card-body">
-                        <h1 class="card-title mb-0">Bios Versions</h1>
+                        <h2 class="card-title mb-0">Bios Versions</h2>
                     </div>
 
                     <ul class="list-group list-group-flush">

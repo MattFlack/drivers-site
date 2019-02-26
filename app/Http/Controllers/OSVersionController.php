@@ -25,7 +25,9 @@ class OSVersionController extends Controller
      */
     public function index()
     {
-        //
+        $osVersions = OSVersion::all();
+
+        return view('admin.os_versions.index', compact('osVersions'));
     }
 
     /**
@@ -35,9 +37,7 @@ class OSVersionController extends Controller
      */
     public function create()
     {
-        $osVersions = OSVersion::all();
-
-        return view('admin.os_versions.create', compact('osVersions'));
+        //
     }
 
     /**
@@ -56,7 +56,7 @@ class OSVersionController extends Controller
 
         OSVersion::create($data);
 
-        return redirect('/admin');
+        return back();
     }
 
     /**
@@ -96,7 +96,7 @@ class OSVersionController extends Controller
 
         $osVersion->update($data);
 
-        return redirect('/admin/os-versions/create');
+        return redirect('/admin/os-versions');
     }
 
     /**

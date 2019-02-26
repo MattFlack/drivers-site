@@ -10,13 +10,12 @@ class AdminFeaturesTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function authorised_users_can_visit_the_admin_page()
+    public function authorised_users_can_visit_the_admin_page_which_redirects_to_admin_product_page()
     {
         $this->signIn();
 
         $this->get('/admin')
-            ->assertStatus(200)
-            ->assertSee('Products');
+            ->assertRedirect('/admin/products');
     }
 
     /** @test */

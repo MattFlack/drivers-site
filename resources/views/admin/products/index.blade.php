@@ -7,7 +7,19 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h2 class="card-title m-0">Products</h2>
+                    <div class="d-flex bd-highlight">
+
+                        {{-- Left Content --}}
+                        <div class="flex-grow-1 bd-highlight">
+                            <h2 class="card-title m-0">Products</h2>
+                        </div>
+
+                        {{-- Right Content --}}
+                        <div class="bd-highlight">
+                            <a class="btn btn-primary" href="/admin/products/create">Add Product</a>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="card-body">
                     <table class="table">
