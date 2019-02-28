@@ -30,6 +30,7 @@ Route::get('/admin/products/{product}/driver-kits/create', 'DriverKitController@
 Route::post('/admin/products/{product}/driver-kits', 'DriverKitController@store');
 Route::get('/admin/products/{product}/driver-kits/{driverKit}/edit', 'DriverKitController@edit');
 Route::patch('/admin/products/{product}/driver-kits/{driverKit}', 'DriverKitController@update');
+Route::delete('/admin/products/{product}/driver-kits/{driverKit}', 'DriverKitController@destroy');
 
 Route::get('/admin/products/{product}/bios/create', 'BiosController@create');
 Route::post('/admin/products/{product}/bios', 'BiosController@store');

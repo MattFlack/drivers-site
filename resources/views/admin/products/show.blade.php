@@ -31,8 +31,18 @@
                                     {{-- Right Content --}}
                                     <div class="bd-highlight">
                                         <small class="pr-5">Added {{ $driverKit->created_at->diffForHumans() }}</small>
-                                        <a class="pr-1" title="Edit Driver" href="{{ $driverKit->path() }}/edit"><i class="fas fa-edit"></i></a>
-                                        <a href="#" title="Delete Driver"><i class="fas fa-trash"></i></a>
+
+                                        <a title="Edit Driver" href="{{ $driverKit->path() }}/edit"><i class="fas fa-edit"></i></a>
+
+                                        <button class="btn btn-link" title="Delete Product" data-toggle="modal" data-target="#confirmDelete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+
+                                        <confirm-delete-modal
+                                            title="Delete {{ $driverKit->filename() }}"
+                                            message="Are you sure?"
+                                            delete-url="{{ $driverKit->path() }}">
+                                        </confirm-delete-modal>
                                     </div>
                                 </div>
                             </li>

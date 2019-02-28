@@ -113,8 +113,10 @@ class DriverKitController extends Controller
      * @param  \App\DriverKit  $driverKit
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DriverKit $driverKit)
+    public function destroy(Product $product, DriverKit $driverKit)
     {
-        //
+        $driverKit->delete();
+
+        return back();
     }
 }

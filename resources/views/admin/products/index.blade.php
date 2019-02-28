@@ -38,8 +38,17 @@
                                     <td>{{ $product->creator->name }}</td>
                                     <td>{{ $product->created_at->diffForHumans() }}</td>
                                     <td>
-                                        <a class="pr-1" title="Edit Product" href="{{ $product->path() }}/edit"><i class="fas fa-edit"></i></a>
-                                        <a href="#" title="Delete Product"><i class="fas fa-trash"></i></a>
+                                        <a title="Edit Product" href="{{ $product->path() }}/edit"><i class="fas fa-edit"></i></a>
+                                        <button class="btn btn-link" title="Delete Product" data-toggle="modal" data-target="#confirmDelete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+
+                                        <confirm-delete-modal
+                                            title="Delete {{ $product->name }}"
+                                            message="Deleting this product will also delete related drivers and bioses. Are you sure?"
+                                            delete-url="...">
+                                        </confirm-delete-modal>
+
                                     </td>
                                 </tr>
                             @endforeach

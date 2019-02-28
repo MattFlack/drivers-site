@@ -113,4 +113,31 @@ class ManageDriverKitsTest extends TestCase
             'url' => 'www.changed.com'
         ]);
     }
+
+    /** @test */
+    public function admin_users_may_delete_driver_kits()
+    {
+        $this->signIn();
+
+        $driverKit = create('App\DriverKit', ['url' => 'www.DeleteMe.com']);
+
+        $this->assertDatabaseHas('driver_kits', ['url' => 'www.DeleteMe.com']);
+
+        $this->delete($driverKit->path());
+
+        $this->assertDatabaseMissing('driver_kits', ['url' => 'www.DeleteMe.com']);
+    }
+
+    /** @test */
+    public function unauthorised_users_may_not_delete_driver_kits()
+    {
+        $this->withExceptionHandling();
+
+        $driverKit = create('App\DriverKit', ['url' => 'www.DeleteMe.com']);
+
+        $this->delete($driverKit->path())
+            ->assertRedirect('/login');
+
+        $this->assertDatabaseHas('driver_kits', ['url' => 'www.DeleteMe.com']);
+    }
 }
