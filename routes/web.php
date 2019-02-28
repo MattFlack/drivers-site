@@ -36,6 +36,7 @@ Route::get('/admin/products/{product}/bios/create', 'BiosController@create');
 Route::post('/admin/products/{product}/bios', 'BiosController@store');
 Route::get('/admin/products/{product}/bios/{bios}/edit', 'BiosController@edit');
 Route::patch('/admin/products/{product}/bios/{bios}', 'BiosController@update');
+Route::delete('/admin/products/{product}/bios/{bios}', 'BiosController@destroy');
 
 Route::get('/admin/product-categories', 'ProductCategoryController@index');
 Route::post('/admin/product-categories', 'ProductCategoryController@store');

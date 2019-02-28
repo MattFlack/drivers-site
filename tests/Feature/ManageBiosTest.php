@@ -125,4 +125,31 @@ class ManageBiosTest extends TestCase
             'version' => '1.01'
         ]);
     }
+
+    /** @test */
+    public function admin_users_may_delete_bioses()
+    {
+        $this->signIn();
+
+        $bios = create('App\Bios', ['url' => 'www.DeleteMe.com']);
+
+        $this->assertDatabaseHas('bios', ['url' => 'www.DeleteMe.com']);
+
+        $this->delete($bios->path());
+
+        $this->assertDatabaseMissing('bios', ['url' => 'www.DeleteMe.com']);
+    }
+
+    /** @test */
+    public function unauthorised_users_may_not_delete_a_bios()
+    {
+        $this->withExceptionHandling();
+
+        $bios = create('App\Bios', ['url' => 'www.DeleteMe.com']);
+
+        $this->delete($bios->path())
+            ->assertRedirect('/login');
+
+        $this->assertDatabaseHas('bios', ['url' => 'www.DeleteMe.com']);
+    }
 }

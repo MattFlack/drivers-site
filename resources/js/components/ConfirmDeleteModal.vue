@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+    <div class="modal fade" :id="dataTarget" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -27,7 +27,7 @@
 
 <script>
     export default {
-        props: [ 'deleteUrl', 'message', 'title'],
+        props: [ 'deleteUrl', 'message', 'title', 'dataTarget'],
 
         data()  {
             return {

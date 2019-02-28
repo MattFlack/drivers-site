@@ -109,8 +109,10 @@ class BiosController extends Controller
      * @param  \App\Bios  $bios
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bios $bios)
+    public function destroy(Product $product, Bios $bios)
     {
-        //
+        $bios->delete();
+
+        return back();
     }
 }
