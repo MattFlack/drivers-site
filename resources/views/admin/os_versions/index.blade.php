@@ -23,7 +23,17 @@
                                 {{-- Right Content --}}
                                 <div class="bd-highlight">
                                     <a class="pr-1" title="Edit OS Version" href="{{ $osVersion->path() }}/edit"><i class="fas fa-edit"></i></a>
-                                    <a href="#" title="Delete OS Version"><i class="fas fa-trash"></i></a>
+
+                                    <button class="btn btn-link" title="Delete OS Version" data-toggle="modal" data-target="#confirmDeleteOSVersion{{ $osVersion->id }}">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+
+                                    <confirm-delete-modal
+                                        title="Delete {{ $osVersion->name }}"
+                                        message="Deleting this OS version will also delete all of the drivers that belong to it. Are you sure?"
+                                        delete-url="{{ $osVersion->path() }}"
+                                        data-target="confirmDeleteOSVersion{{ $osVersion->id }}">
+                                    </confirm-delete-modal>
                                 </div>
 
                             </div>

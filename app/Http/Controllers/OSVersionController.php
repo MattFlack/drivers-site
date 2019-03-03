@@ -105,8 +105,10 @@ class OSVersionController extends Controller
      * @param  \App\OSVersion  $oSVersion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(OSVersion $oSVersion)
+    public function destroy(OSVersion $osVersion)
     {
-        //
+        $osVersion->delete();
+
+        return back();
     }
 }

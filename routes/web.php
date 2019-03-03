@@ -49,6 +49,7 @@ Route::get('/admin/os-versions', 'OSVersionController@index');
 Route::post('/admin/os-versions', 'OSVersionController@store');
 Route::get('/admin/os-versions/{osVersion}/edit', 'OSVersionController@edit');
 Route::patch('/admin/os-versions/{osVersion}', 'OSVersionController@update');
+Route::delete('/admin/os-versions/{osVersion}', 'OSVersionController@destroy');
 
 Route::get('/bios', 'BiosController@index');
 Route::get('/driver-kits', 'DriverKitController@index');

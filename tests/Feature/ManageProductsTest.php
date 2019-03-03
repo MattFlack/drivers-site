@@ -168,6 +168,6 @@ class ManageProductsTest extends TestCase
         $this->delete($product->path())
             ->assertRedirect('/login');
 
-        $this->assertDatabaseHas('product', ['name' => 'Delete Me']);
+        $this->assertDatabaseHas('products', ['name' => 'Delete Me']);
     }
 }

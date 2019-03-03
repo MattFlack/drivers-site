@@ -95,4 +95,31 @@ class ManageOSVersionsTest extends TestCase
 
         $this->assertDatabaseMissing('os_versions', ['name' => 'changed']);
     }
+
+    /** @test */
+    public function admin_users_may_delete_os_versions()
+    {
+        $this->signIn();
+
+        $osVersion = create('App\OSVersion', ['name' => 'Delete Me']);
+
+        $this->assertDatabaseHas('os_versions', ['name' => 'Delete Me']);
+
+        $this->delete($osVersion->path());
+
+        $this->assertDatabaseMissing('os_versions', ['name' => 'Delete Me']);
+    }
+
+    /** @test */
+    public function unauthorised_users_may_not_delete_an_os_version()
+    {
+        $this->withExceptionHandling();
+
+        $osVersion = create('App\OSVersion', ['name' => 'Delete Me']);
+
+        $this->delete($osVersion->path())
+            ->assertRedirect('/login');
+
+        $this->assertDatabaseHas('os_versions', ['name' => 'Delete Me']);
+    }
 }
