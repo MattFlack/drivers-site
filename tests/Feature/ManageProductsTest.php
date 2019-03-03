@@ -143,4 +143,31 @@ class ManageProductsTest extends TestCase
             'product_category_id' => $categoryTwo->id
         ]);
     }
+
+    /** @test */
+    public function admin_users_may_delete_products()
+    {
+        $this->signIn();
+
+        $product = create('App\Product', ['name' => 'Delete Me']);
+
+        $this->assertDatabaseHas('products', ['name' => 'Delete Me']);
+
+        $this->delete($product->path());
+
+        $this->assertDatabaseMissing('products', ['name' => 'Delete Me']);
+    }
+
+    /** @test */
+    public function unauthorised_users_may_not_delete_a_product()
+    {
+        $this->withExceptionHandling();
+
+        $product = create('App\Product', ['name' => 'Delete Me']);
+
+        $this->delete($product->path())
+            ->assertRedirect('/login');
+
+        $this->assertDatabaseHas('product', ['name' => 'Delete Me']);
+    }
 }

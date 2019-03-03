@@ -23,7 +23,18 @@
                                 {{-- Right Content --}}
                                 <div class="bd-highlight">
                                     <a class="pr-1" title="Edit Category" href="{{ $category->path() }}/edit"><i class="fas fa-edit"></i></a>
-                                    <a href="#" title="Delete Category"><i class="fas fa-trash"></i></a>
+
+                                    <button class="btn btn-link" title="Delete Category" data-toggle="modal" data-target="#confirmDeleteCategory{{ $category->id }}">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+
+                                    <confirm-delete-modal
+                                            title="Delete {{ $category->name }}"
+                                            message="Deleting this category will also delete all of the products belong to it. Are you sure?"
+                                            delete-url="{{ $category->path() }}"
+                                            data-target="confirmDeleteCategory{{ $category->id }}">
+                                    </confirm-delete-modal>
+
                                 </div>
                             </div>
                         </li>

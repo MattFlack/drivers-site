@@ -94,4 +94,31 @@ class ManageProductCategoriesTest extends TestCase
 
         $this->assertDatabaseMissing('product_categories', ['name' => 'changed']);
     }
+
+    /** @test */
+    public function admin_users_may_delete_product_categories()
+    {
+        $this->signIn();
+
+        $category = create('App\ProductCategory', ['name' => 'Delete Me']);
+
+        $this->assertDatabaseHas('product_categories', ['name' => 'Delete Me']);
+
+        $this->delete($category->path());
+
+        $this->assertDatabaseMissing('product_categories', ['name' => 'Delete Me']);
+    }
+
+    /** @test */
+    public function unauthorised_users_may_not_delete_a_product_category()
+    {
+        $this->withExceptionHandling();
+
+        $category = create('App\ProductCategory', ['name' => 'Delete Me']);
+
+        $this->delete($category->path())
+            ->assertRedirect('/login');
+
+        $this->assertDatabaseHas('product_categories', ['name' => 'Delete Me']);
+    }
 }

@@ -8,6 +8,16 @@ class Product extends Model
 {
     protected $guarded = [];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($product) {
+            $product->driverKits->each->delete();
+            $product->bioses->each->delete();
+        });
+    }
+
     public function creator() {
         return $this->belongsTo(User::class, 'user_id');
     }

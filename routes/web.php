@@ -25,6 +25,7 @@ Route::get('/admin/products/create', 'ProductController@create');
 Route::get('/admin/products/{product}', 'ProductController@show');
 Route::get('/admin/products/{product}/edit', 'ProductController@edit');
 Route::patch('/admin/products/{product}', 'ProductController@update');
+Route::delete('/admin/products/{product}', 'ProductController@destroy');
 
 Route::get('/admin/products/{product}/driver-kits/create', 'DriverKitController@create');
 Route::post('/admin/products/{product}/driver-kits', 'DriverKitController@store');
@@ -42,6 +43,7 @@ Route::get('/admin/product-categories', 'ProductCategoryController@index');
 Route::post('/admin/product-categories', 'ProductCategoryController@store');
 Route::get('/admin/product-categories/{productCategory}/edit', 'ProductCategoryController@edit');
 Route::patch('/admin/product-categories/{productCategory}', 'ProductCategoryController@update');
+Route::delete('/admin/product-categories/{productCategory}', 'ProductCategoryController@destroy');
 
 Route::get('/admin/os-versions', 'OSVersionController@index');
 Route::post('/admin/os-versions', 'OSVersionController@store');

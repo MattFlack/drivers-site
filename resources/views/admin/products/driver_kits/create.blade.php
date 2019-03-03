@@ -52,8 +52,6 @@
                                 {{-- Right Content --}}
                                 <div class="bd-highlight">
                                     <small class="pr-5">Added {{ $driverKit->created_at->diffForHumans() }}</small>
-                                    <a class="pr-1" title="Edit Driver" href="{{ $driverKit->path() }}/edit"><i class="fas fa-edit"></i></a>
-                                    <a href="#" title="Delete Driver"><i class="fas fa-trash"></i></a>
                                 </div>
                             </div>
                         </li>

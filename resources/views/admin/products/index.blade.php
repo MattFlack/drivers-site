@@ -39,14 +39,15 @@
                                     <td>{{ $product->created_at->diffForHumans() }}</td>
                                     <td>
                                         <a title="Edit Product" href="{{ $product->path() }}/edit"><i class="fas fa-edit"></i></a>
-                                        <button class="btn btn-link" title="Delete Product" data-toggle="modal" data-target="#confirmDelete">
+                                        <button class="btn btn-link" title="Delete Product" data-toggle="modal" data-target="#confirmDeleteProduct{{ $product->id }}">
                                             <i class="fas fa-trash"></i>
                                         </button>
 
                                         <confirm-delete-modal
                                             title="Delete {{ $product->name }}"
-                                            message="Deleting this product will also delete related drivers and bioses. Are you sure?"
-                                            delete-url="...">
+                                            message="Deleting this product will also delete all of its drivers and bioses. Are you sure?"
+                                            delete-url="{{ $product->path() }}"
+                                            data-target="confirmDeleteProduct{{ $product->id }}">
                                         </confirm-delete-modal>
 
                                     </td>

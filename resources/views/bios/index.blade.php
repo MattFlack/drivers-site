@@ -9,20 +9,17 @@
             <table class="table table-bordered mb-5">
 
                 <thead>
-                <tr>
-                    <th scope="col">{{ $category->name }}</th>
-                    <th scope="col">Bios</th>
-                    <th scope="col">Added</th>
-                </tr>
+                    <tr>
+                        <th scope="col">{{ $category->name }}</th>
+                        <th scope="col">Bios</th>
+                        <th scope="col">Added</th>
+                    </tr>
                 </thead>
 
                 <tbody>
 
                 @foreach($category->products as $product)
                     <tr>
-
-
-
                         <th scope="row" rowspan="{{ $product->bioses->count() }}">{{ $product->name }}</th>
 
                         <?php $count = 0 ?>

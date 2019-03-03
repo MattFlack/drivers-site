@@ -57,6 +57,31 @@ class ProductTest extends TestCase
 
         $this->assertInstanceOf('App\Bios', $product->bioses[0]);
         $this->assertEquals($bios->id, $product->bioses[0]->id);
+    }
 
+    /** @test */
+    public function deleting_a_product_also_deletes_its_drivers()
+    {
+        $product = create('App\Product');
+        $driverKit = create('App\DriverKit', ['product_id' => $product->id]);
+
+        $this->assertDatabaseHas('driver_kits', ['id' => $driverKit->id]);
+
+        $product->delete();
+
+        $this->assertDatabaseMissing('driver_kits', ['id' => $driverKit->id]);
+    }
+
+    /** @test */
+    public function deleting_a_product_also_deletes_its_bioses()
+    {
+        $product = create('App\Product');
+        $bios = create('App\Bios', ['product_id' => $product->id]);
+
+        $this->assertDatabaseHas('bios', ['id' => $bios->id]);
+
+        $product->delete();
+
+        $this->assertDatabaseMissing('bios', ['id' => $bios->id]);
     }
 }

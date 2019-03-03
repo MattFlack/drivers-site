@@ -34,15 +34,15 @@
 
                                         <a title="Edit Driver" href="{{ $driverKit->path() }}/edit"><i class="fas fa-edit"></i></a>
 
-                                        <button class="btn btn-link" title="Delete Driver" data-toggle="modal" data-target="#confirmDeleteDriver">
+                                        <button class="btn btn-link" title="Delete Driver" data-toggle="modal" data-target="#confirmDeleteDriver{{ $driverKit->id }}">
                                             <i class="fas fa-trash"></i>
                                         </button>
 
                                         <confirm-delete-modal
-                                            title="Delete {{ $driverKit->filename() }}"
+                                            title="Delete {{ $driverKit->osVersion->name }} {{ $driverKit->filename() }}"
                                             message="Are you sure?"
                                             delete-url="{{ $driverKit->path() }}"
-                                            data-target="confirmDeleteDriver">
+                                            data-target="confirmDeleteDriver{{ $driverKit->id }}">
                                         </confirm-delete-modal>
                                     </div>
                                 </div>
@@ -72,7 +72,7 @@
 
                                         <a class="pr-1" title="Edit Bios" href="{{ $bios->path() }}/edit"><i class="fas fa-edit"></i></a>
 
-                                        <button class="btn btn-link" title="Delete Bios" data-toggle="modal" data-target="#confirmDeleteBios">
+                                        <button class="btn btn-link" title="Delete Bios" data-toggle="modal" data-target="#confirmDeleteBios{{ $bios->id }}">
                                             <i class="fas fa-trash"></i>
                                         </button>
 
@@ -80,7 +80,7 @@
                                                 title="Delete bios version {{ $bios->version }}"
                                                 message="Are you sure?"
                                                 delete-url="{{ $bios->path() }}"
-                                                data-target="confirmDeleteBios">
+                                                data-target="confirmDeleteBios{{ $bios->id }}">
                                         </confirm-delete-modal>
                                     </div>
                                 </div>
