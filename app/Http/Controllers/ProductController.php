@@ -57,7 +57,7 @@ class ProductController extends Controller
 
         $data['user_id'] = auth()->id();
 
-        $product =Product::create($data);
+        $product = Product::create($data);
 
         return redirect($product->path());
     }

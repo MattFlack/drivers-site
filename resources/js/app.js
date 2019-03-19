@@ -1,3 +1,4 @@
+import InstantSearch from 'vue-instantsearch';
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -6,6 +7,8 @@
  */
 
 window.Vue = require('vue');
+Vue.use(InstantSearch);
+
 require('./bootstrap');
 
 /**
@@ -13,13 +16,14 @@ require('./bootstrap');
  * Vue components. It will recursively scan this directory for the Vue
  * components and automatically register them with their "basename".
  *
- * Eg. ./components/ConfirmDeleteModal.vue -> <example-component></example-component>
+ * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('confirm-delete-modal', require('./components/ConfirmDeleteModal.vue').default);
+Vue.component('product-search', require('./components/ProductSearch.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

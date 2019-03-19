@@ -53,3 +53,4 @@ Route::delete('/admin/os-versions/{osVersion}', 'OSVersionController@destroy');
 
 Route::get('/bios', 'BiosController@index');
 Route::get('/driver-kits', 'DriverKitController@index');
+Route::get('/products/search', 'SearchController@show');
